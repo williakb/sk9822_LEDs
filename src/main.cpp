@@ -16,7 +16,7 @@ void setup()
 
   Serial.begin(115200); // Initialize serial communication at 9600 baud
 
-  LED_strip_controller_init();
+  LED_strip_init();
 }
 
 void loop()
@@ -39,5 +39,8 @@ void loop()
     String receivedData = Serial.readStringUntil('\n');
     Serial.print("Received: ");
     Serial.println(receivedData);
+
+    if (receivedData[0] == 'a')
+      LED_strip_controller_clear_pixels_in_range(3,5);
   }
 }

@@ -21,37 +21,34 @@ APA102<dataPin, clockPin> ledStrip;
 constexpr uint16_t LED_COUNT = 60;
 PixelBuffer pixels(LED_COUNT);
 
+void test_led_strip ();
+
+void LED_strip_init(void)
+{
+  /* LED Array comes up in unknown state/LED pattern */
+  pixels.clear();
+  pixels.show(ledStrip);
+
+  test_led_strip();
+}
+
+void LED_strip_controller_set_pixels_in_range(uint16_t start, uint16_t end, LED_colors_t color, uint8_t brightness) {
+    Color_t c = LED_ColorTable[color];
+    pixels.setRange(start, end, c.r, c.g, c.b, brightness);
+    pixels.show(ledStrip);
+    //Serial.printf("Setting LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
+}
+
+void LED_strip_controller_clear_pixels_in_range(uint16_t start, uint16_t end) {
+    pixels.setRange(start, end, 0,0,0);
+    pixels.show(ledStrip);
+    //Serial.printf("Setting LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
+}
+
 void test_led_strip (){
     // Set some individual LEDs
-    pixels.set(0, 255, 0, 0, 31);  // LED 0 red @ max
-    pixels.set(1, 0, 255, 0, 16);  // LED 1 green @ mid
-    pixels.set(2, 0, 0, 255, 4);   // LED 2 blue @ low
-
-    // Push the whole strip at once
-    //pixels.show(ledStrip);
-
-    //delay(1000);
-
-    // Fill then update
-    //pixels.fill(255, 255, 255, 8);
-    //pixels.show(ledStrip);
-
-    // Set LEDs 4..8 to blue @ max brightness
-    pixels.setRange(4, 8, /*r*/0, /*g*/0, /*b*/255, /*gb*/31);
-    pixels.show(ledStrip);
-
-    delay(3000);
-    // Later: dim that section without changing color
-    pixels.setRangeGB(4, 8, 8);
-    pixels.show(ledStrip);
-
-    delay(3000);
-
-    pixels.clear();
-    pixels.show(ledStrip);
+  LED_strip_controller_set_pixels_in_range(0, 3, RED, 25);
+  LED_strip_controller_set_pixels_in_range(4, 8, GREEN, 25);
+  LED_strip_controller_set_pixels_in_range(9, 11, BLUE, 25);
 }
 
-void LED_strip_controller_init(void)
-{
-    test_led_strip ();
-}
