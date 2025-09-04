@@ -33,16 +33,20 @@ void LED_strip_init(void)
 }
 
 void LED_strip_controller_set_pixels_in_range(uint16_t start, uint16_t end, LED_colors_t color, uint8_t brightness) {
-    Color_t c = LED_ColorTable[color];
-    pixels.setRange(start, end, c.r, c.g, c.b, brightness);
-    pixels.show(ledStrip);
-    //Serial.printf("Setting LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
+  Color_t c = LED_ColorTable[color];
+  pixels.setRange(start, end, c.r, c.g, c.b, brightness);
+  pixels.show(ledStrip);
+  //Serial.printf("Setting LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
 }
 
 void LED_strip_controller_clear_pixels_in_range(uint16_t start, uint16_t end) {
-    pixels.setRange(start, end, 0,0,0);
-    pixels.show(ledStrip);
-    //Serial.printf("Setting LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
+  pixels.setRange(start, end, 0,0,0);
+  pixels.show(ledStrip);
+  //Serial.printf("Clearing LED to R=%d G=%d B=%d\n", c.r, c.g, c.b);
+}
+
+void LED_strip_controller_blink_pixels_in_range(uint16_t start, uint16_t end, LED_colors_t color, uint8_t brightness) {
+  //TBD....
 }
 
 void test_led_strip (){
