@@ -11,16 +11,17 @@
  *   - Wait 10s
  *   - Repeat
  */
+//PURLIN -> approx 2ms to 10ms...
 
 #define PWM_PIN   11       // OC1A on Mega
-#define PWM_FREQ  500       // x Hz PWM
+#define PWM_FREQ  60       // x Hz PWM ~ 16.667ms
 
-const float DUTY_MIN = 0.01f;       // %
-const float DUTY_MAX = 0.10f;      // %
+const float DUTY_MIN = 12.0f;       // %~2ms
+const float DUTY_MAX = 48.0f;       // %~8ms
 
 const unsigned long WAIT_MS      = 5000; // 10 seconds at ends
 const unsigned long RAMP_STEP_MS = 1000;   // time between duty updates during ramps
-const float         RAMP_STEP_PCT = .01f; // change per step during ramps
+const float         RAMP_STEP_PCT = 5.0f; // change per step during ramps
 
 // --- State machine ---
 enum class PwmState { WAIT_AT_MIN, RAMP_UP, RAMP_DOWN };
